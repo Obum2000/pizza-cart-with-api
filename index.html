@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="pizza-cart-api.js"></script>
+</head>
+
+
+
+<body>
+
+
+    </div>
+
+    <script>
+        const cart_code = '...';
+        const url = `https://pizza-cart-api.herokuapp.com/api/pizzas`;
+
+        axios.get(url).then((result) => {
+            this.pizzas = result.data.pizzas;
+
+            // this.pizzas is declared on you AlpineJS Widget.
+            this.pizzas = pizzas;
+        })
+
+    </script>
+
+
+
+    <div x-data="pizzaCartWithAPIWidget">
+
+        <div class="header">
+            <div class="f3">
+                <h1>Perfect Roman-inspired Pizzas</h1>
+
+                <img src="./images/PizzaPicture.webp" alt="" width="40">
+
+                <small>...pamper your tastebuds</a> </small>
+            </div>
+        </div>
+
+
+
+        <div>
+            Order ID: <strong x-text="cartId"></strong>
+        </div>
+
+        <div class="input">
+            Customer Name: <input type="text" x-model="username" placeholder="Enter your name" </div>
+
+
+
+            <div>
+                Cart total: R <strong x-text="cart.total.toFixed(2)"></strong>
+            </div>
+
+            <div>
+
+
+
+                <table>
+                    <tr x-show="cart.total > 0">
+                        <th>Flavour</th>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                        <th>Order Pizzas</th>
+                        <th>Total</th>
+                    </tr>
+                    <template x-for="pizza in cart.pizzas">
+                        <tr>
+                            <td x-text="pizza.flavour"></td>
+                            <td x-text="pizza.size"></td>
+                            <td x-text="pizza.qty"></td>
+                            <td>
+                                <button x-on:click="add(pizza)">+</button>
+                                <button x-on:click="remove(pizza)">-</button>
+                            </td>
+                            <td> R <span x-text="pizza.total.toFixed(2)"></span> </td>
+
+                        </tr>
+
+                    </template>
+
+
+                    <tr x-show="cart.total > 0">
+
+                        <td>
+                            <div>
+                                Cart total: R <strong x-text="cart.total.toFixed(2)"></strong>
+                            </div>
+                        </td>
+
+                        <td colspan="3">
+                            <div x-show="payNow">
+                                <div class="message" x-text="paymentMessage"></div>
+                                <div>
+                                    <label for="input">Enter Amount</label>
+                                    <input class="input" type="number" placeholder="Payment Amount"
+                                        x-model="paymentAmount" width=" 50">
+                                    <button x-on:click="pay" class="btn">
+                                        <img src="./images/shopping-cart.png" width="20" alt="">
+                                        PAY NOW</button>
+                                </div>
+
+
+
+                            </div>
+
+                        </td>
+                        <td>
+                            <button x-show="!payNow" x-on:click="payNow =true" class="btn">
+                                <img src="./images/shopping-cart.png" width="20" alt="">
+                                Pay</button>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div x-text="message"></div>
+
+
+        <template x-for="pizza in cart.pizzas">
+
+            <div class="header1">
+                <div class="small">
+                    <div>
+                        <h3 x-text="pizza.flavour"></h3>
+                    </div>
+                    <img x-bind:src=" pizzaImage(pizza)" alt="" width="70">
+                    <div x-text="pizza.size"></div>
+                    <div>
+                        <h3 x-text="pizza.price"></h3>
+                    </div>
+                    <button x-on:click="add(pizza)">BUY</button>
+
+                    
+
+                </div>
+            </div>
+        </template>
+
+
+        <h2>Pizzas you can order</h2>
+
+
+        <table>
+            <template x-for="pizza in pizzas">
+                <tr>
+                    <td>
+                        <img x-bind:src="pizzaImage(pizza)" alt="" width="30">
+                    </td>
+                    <td x-text="pizza.flavour"></td>
+                    <td x-text="pizza.size"></td>
+                    <td x-text="pizza.price"></td>
+                    <td>
+                        <button x-on:click="add(pizza)">Buy</button>
+                    </td>
+
+
+                </tr>
+            </template>
+        </table>
+
+        Number of Pizzas available: <strong x-text="pizzas.length"></strong>
+
+
+    </div>
+
+    <div class="footer">
+        <h2>Contact us at: </h2>
+
+        <div>+27635554444, www.thepizzaplace.com
+        </div>
+        <h2>Pizza Place: </h2>
+        <div>Shopping Mall, Richmond. Johannesburg.
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
